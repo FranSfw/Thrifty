@@ -6,9 +6,9 @@ import { User } from "./entities/user";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
-  host: "db.agetxtbbhhdzkssdrldg.supabase.co",
-  port: 5432,
-  username: "postgres",
+  host: "aws-0-us-west-1.pooler.supabase.com",
+  port: 6543,
+  username: "postgres.agetxtbbhhdzkssdrldg",
   password: "LuisUxiono33",
   database: "postgres",
   synchronize: true, // En desarrollo puede ser true, pero en producción debería ser false
