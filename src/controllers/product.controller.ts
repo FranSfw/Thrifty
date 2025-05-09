@@ -86,8 +86,6 @@ export class ProductController {
         description,
         category,
         initialQuantity,
-        price,
-        cost,
         branchId,
         imageSrc,
       } = req.body;
@@ -96,13 +94,11 @@ export class ProductController {
         !productName ||
         !category ||
         initialQuantity === undefined ||
-        price === undefined ||
-        cost === undefined ||
         !branchId
       ) {
         return res.status(400).json({
           message:
-            "Product name, category, initial quantity, price, cost, and branch ID are required",
+            "Product name, category, initial quantity, and branch ID are required",
         });
       }
 
@@ -169,8 +165,6 @@ export class ProductController {
         description,
         category,
         initialQuantity,
-        price,
-        cost,
         branchId,
         imageSrc,
       } = req.body;
