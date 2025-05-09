@@ -44,6 +44,16 @@ export class Product {
   @Min(0)
   initialQuantity!: number;
 
+  @Column()
+  @IsNotEmpty()
+  @Min(0)
+  price!: number;
+
+  @Column()
+  @IsNotEmpty()
+  @Min(0)
+  cost!: number;
+
   @Column({ nullable: true, length: 1000 })
   @MaxLength(1000)
   imageSrc!: string;

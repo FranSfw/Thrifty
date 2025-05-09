@@ -86,6 +86,8 @@ export class ProductController {
         description,
         category,
         initialQuantity,
+        price,
+        cost,
         branchId,
         imageSrc,
       } = req.body;
@@ -94,11 +96,13 @@ export class ProductController {
         !productName ||
         !category ||
         initialQuantity === undefined ||
+        price === undefined ||
+        cost === undefined ||
         !branchId
       ) {
         return res.status(400).json({
           message:
-            "Product name, category, initial quantity, and branch ID are required",
+            "Product name, category, initial quantity, price, cost, and branch ID are required",
         });
       }
 
@@ -128,6 +132,8 @@ export class ProductController {
       product.description = description || "";
       product.category = category as ProductCategory;
       product.initialQuantity = initialQuantity;
+      product.price = price;
+      product.cost = cost;
       product.imageSrc = imageSrc || null;
       product.addedAt = new Date();
       product.branchId = branchId;
@@ -165,6 +171,8 @@ export class ProductController {
         description,
         category,
         initialQuantity,
+        price,
+        cost,
         branchId,
         imageSrc,
       } = req.body;
@@ -208,6 +216,8 @@ export class ProductController {
       if (category) product.category = category as ProductCategory;
       if (initialQuantity !== undefined)
         product.initialQuantity = initialQuantity;
+      if (price !== undefined) product.price = price;
+      if (cost !== undefined) product.cost = cost;
       if (imageSrc !== undefined) product.imageSrc = imageSrc;
 
       // Validate updated product
