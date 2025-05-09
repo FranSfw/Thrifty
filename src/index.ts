@@ -19,19 +19,6 @@ const allowedOrigins = [
   "https://thrifty-front.vercel.app",
 ];
 
-// ✅ Configurar CORS antes de las rutas
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-  })
-);
 
 // Inicializar conexión a la base de datos
 AppDataSource.initialize()
