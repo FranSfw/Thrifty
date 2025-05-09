@@ -44,15 +44,6 @@ export class Product {
   @Min(0)
   initialQuantity!: number;
 
-  @IsNotEmpty()
-  @Column({ type: 'decimal', precision: 10, scale: 2, nullable: false })
-  price!: number;
-
-  @Column()
-  @IsNotEmpty()
-  @Min(0)
-  cost!: number;
-
   @Column({ nullable: true, length: 1000 })
   @MaxLength(1000)
   imageSrc!: string;
