@@ -11,12 +11,11 @@ const app = express();
 app.use(express.json());
 
 const allowedOrigins = [
-  "http://localhost:4200/",
-  "http://localhost:3000/",
-  "https://thrifty-front.vercel.app/",
+  "http://localhost:4200",
+  "http://localhost:3000",
+  "https://thrifty-front.vercel.app",
 ];
 
-// ✅ Configurar CORS antes de las rutas
 app.use(
   cors({
     origin: function (origin, callback) {
@@ -31,9 +30,15 @@ app.use(
 );
 
 AppDataSource.initialize().then(() => {
-  // ✅ Registrar rutas después de aplicar CORS
   app.use("/Branches", branchRouter);
   app.use("/Users", userRouter);
   app.use("/Logs", logRouter);
   app.use("/Products", productRouter);
+
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`Server is running on port `);
+  })
+  
 });
+
