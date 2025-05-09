@@ -81,8 +81,14 @@ export class ProductController {
   // Create a new product
   static createProduct = async (req: Request, res: Response) => {
     try {
-      const { productName, description, category, initialQuantity, branchId } =
-        req.body;
+      const {
+        productName,
+        description,
+        category,
+        initialQuantity,
+        branchId,
+        imageSrc,
+      } = req.body;
 
       if (
         !productName ||
@@ -122,6 +128,7 @@ export class ProductController {
       product.description = description || "";
       product.category = category as ProductCategory;
       product.initialQuantity = initialQuantity;
+      product.imageSrc = imageSrc || null;
       product.addedAt = new Date();
       product.branchId = branchId;
 
@@ -153,8 +160,14 @@ export class ProductController {
         return res.status(400).json({ message: "Invalid product ID" });
       }
 
-      const { productName, description, category, initialQuantity, branchId } =
-        req.body;
+      const {
+        productName,
+        description,
+        category,
+        initialQuantity,
+        branchId,
+        imageSrc,
+      } = req.body;
 
       const productRepository = AppDataSource.getRepository(Product);
       const product = await productRepository.findOne({ where: { id } });
@@ -195,6 +208,7 @@ export class ProductController {
       if (category) product.category = category as ProductCategory;
       if (initialQuantity !== undefined)
         product.initialQuantity = initialQuantity;
+      if (imageSrc !== undefined) product.imageSrc = imageSrc;
 
       // Validate updated product
       const errors = await validate(product);
