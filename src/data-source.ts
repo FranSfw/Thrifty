@@ -4,16 +4,24 @@ import { Log } from "./entities/log";
 import { Product } from "./entities/product";
 import { User } from "./entities/user";
 
+// Configuración con valores predeterminados en caso de que falten las variables de entorno
 export const AppDataSource = new DataSource({
   type: "postgres",
-  host: process.env.DB_HOST,
-  port: Number(process.env.DB_PORT),
-  username: process.env.DB_USER,
-  password: String(process.env.DB_PASSWORD),
-  database: process.env.DB_NAME,
+  host: process.env.DB_HOST || "localhost",
+  port: Number(process.env.DB_PORT || "5432"),
+  username: process.env.DB_USER || "postgres",
+  password: process.env.DB_PASSWORD || "postgres",
+  database: process.env.DB_NAME || "thrifty",
   synchronize: true, // En desarrollo puede ser true, pero en producción debería ser false
   logging: true,
   entities: [Branch, Log, Product, User],
+  connectTimeoutMS: 10000, // Aumentar timeout de conexión a 10 segundos
+  maxQueryExecutionTime: 5000, // Timeout para queries
+  extra: {
+    // Configuraciones adicionales para mejor manejo de errores
+    max: 10, // máximo número de conexiones en el pool
+    connectionTimeoutMillis: 10000, // timeout de conexión en milisegundos
+  },
 });
 
 export const initializeDataSource = async () => {
