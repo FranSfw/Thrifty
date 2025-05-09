@@ -132,8 +132,6 @@ export class ProductController {
       product.description = description || "";
       product.category = category as ProductCategory;
       product.initialQuantity = initialQuantity;
-      product.price = price;
-      product.cost = cost;
       product.imageSrc = imageSrc || null;
       product.addedAt = new Date();
       product.branchId = branchId;
@@ -216,8 +214,6 @@ export class ProductController {
       if (category) product.category = category as ProductCategory;
       if (initialQuantity !== undefined)
         product.initialQuantity = initialQuantity;
-      if (price !== undefined) product.price = price;
-      if (cost !== undefined) product.cost = cost;
       if (imageSrc !== undefined) product.imageSrc = imageSrc;
 
       // Validate updated product
