@@ -44,9 +44,8 @@ export class Product {
   @Min(0)
   initialQuantity!: number;
 
-  @Column()
   @IsNotEmpty()
-  @Min(0)
+  @Column({ type: 'decimal', precision: 10, scale: 2, nullable: false })
   price!: number;
 
   @Column()
