@@ -1,4 +1,5 @@
 import "reflect-metadata";
+import cors from "cors";
 import express from "express";
 import { AppDataSource } from "./data-source";
 import branchRouter from "./routers/branch.routes";
@@ -16,7 +17,24 @@ AppDataSource.initialize().then(() => {
   app.use("/Logs", logRouter);
   app.use("/Products", productRouter);
 
-  app.listen(3000, () => {
-    console.log("Server started on http://localhost:3000");
-  });
+  const allowedOrigins = [
+    "http://localhost:4200/", // Angular local
+    "http://localhost:3000/", // React local (por si acaso)
+    "https://thrifty-front.vercel.app/", // Producción
+  ];
+
+  // Configurar CORS dinámico
+  app.use(
+    cors({
+      origin: function (origin, callback) {
+        // Permitir peticiones sin origen (como Postman) o desde los orígenes permitidos
+        if (!origin || allowedOrigins.includes(origin)) {
+          callback(null, true);
+        } else {
+          callback(new Error("Not allowed by CORS"));
+        }
+      },
+      credentials: true,
+    })
+  );
 });
